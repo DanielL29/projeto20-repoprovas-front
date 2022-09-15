@@ -1,7 +1,7 @@
 import { SignWrapper } from "./AuthStyle";
 import logo from '../../assets/images/logo.png'
 import { useContext, useState } from "react";
-import AuthInput from '../../components/input/AuthInput';
+import AuthInput from '../../components/auth-input/AuthInput';
 import { GITHUB_BUTTON_STYLE } from "../../constants/objectStyles";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";

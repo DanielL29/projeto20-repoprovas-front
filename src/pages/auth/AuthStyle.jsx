@@ -9,6 +9,8 @@ export const SignWrapper = styled.div`
     img {
         margin-top: 55px;
         margin-bottom: 185px;
+        width: 292px;
+        height: 63px;
     }
 
     h1 {

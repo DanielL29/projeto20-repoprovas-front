@@ -13,7 +13,7 @@ export async function login(e, user, setLoading, navigate, setCurrentUser) {
         setCurrentUser({ token })
         localStorage.setItem('userLocal', JSON.stringify({ token }))
 
-        navigate('/tests/discipline')
+        navigate('/tests/disciplines')
     }
 
     setLoading(false)

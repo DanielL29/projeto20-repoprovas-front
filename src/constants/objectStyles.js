@@ -9,3 +9,9 @@ export const GITHUB_BUTTON_STYLE = {
     `,
     borderRadius: '4px'
 }
+
+export const LOGOUT_STYLE = {
+    color: '#000',
+    width: '32px',
+    height: '36px'
+}
