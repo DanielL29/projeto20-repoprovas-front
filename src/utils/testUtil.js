@@ -1,5 +1,5 @@
 import { getTeacherDiscipline } from '../services/teacherDisciplineService'
-import { createTest, getTestsByDiscipline } from "../services/testService";
+import { createTest, getTestsByDiscipline, getTestsByTeacher } from "../services/testService";
 
 export async function addTest(e, token, test, navigate) {
     e.preventDefault()
@@ -22,6 +22,12 @@ export async function addTest(e, token, test, navigate) {
 
 export async function testsByDiscipline(token, setTests) {
     const tests = await getTestsByDiscipline(token)
+
+    setTests(tests)
+}
+
+export async function testsByTeacher(token, setTests) {
+    const tests = await getTestsByTeacher(token)
 
     setTests(tests)
 }

@@ -25,3 +25,13 @@ export async function getTestsByDiscipline(token) {
         errorToast(err.response.data)
     }
 }
+
+export async function getTestsByTeacher(token) {
+    try {
+        const promise = await axios.get(`${TEST_ENDPOINT}/teacher`, AUTH_CONFIG(token))
+
+        return promise.data
+    } catch (err) {
+        errorToast(err.response.data)
+    }
+}

@@ -1,9 +1,8 @@
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
-import { ExpandMore } from '@mui/icons-material'
 import { useContext, useEffect, useState } from "react";
 import { testsByDiscipline } from "../../utils/testUtil";
 import UserContext from "../../contexts/UserContext";
 import { TestWrapper } from "./TestStyle";
+import TestsAccordion from "../../layouts/tests-accordion/TestsAccordion";
 
 export default function TestsByDiscipline() {
     const [tests, setTests] = useState([])
@@ -18,48 +17,28 @@ export default function TestsByDiscipline() {
         <TestWrapper>
             {tests.map(term => {
                 return (
-                    <Accordion key={term.id} sx={{ ":before": { backgroundColor: '#fff' } }}>
-                        <AccordionSummary
-                            expandIcon={<ExpandMore />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                        >
-                            <Typography>{term.number}° Período</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>
-                                {term.disciplines.map(discipline => {
-                                    return (
-                                        <Accordion key={discipline.id} elevation={0} sx={{ ":before": { backgroundColor: '#fff' } }}>
-                                            <AccordionSummary
-                                                expandIcon={<ExpandMore />}
-                                                aria-controls="panel1a-content"
-                                                id="panel1a-header"
-                                            >
-                                                <Typography>{discipline.name}</Typography>
-                                            </AccordionSummary>
-                                            <AccordionDetails>
-                                                <Typography>
-                                                    {discipline.categories.map(category => {
-                                                        return (
-                                                            <div className="categories" key={category.id}>
-                                                                <h1>{category.tests.length > 0 ? category.name : ''}</h1>
-                                                                {category.tests.map(test => {
-                                                                    return (
-                                                                        <p>{test.name} ({test.teacherDiscipline.teacher.name})</p>
-                                                                    )
-                                                                })}
-                                                            </div>
-                                                        )
-                                                    })}
-                                                </Typography>
-                                            </AccordionDetails>
-                                        </Accordion>
-                                    )
-                                })}
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
+                    <TestsAccordion key={term.id} name={`${term.number}° Período`}>
+                        {term.disciplines.map(discipline => {
+                            return (
+                                <TestsAccordion key={discipline.id} name={discipline.name} elevation>
+                                    {discipline.categories.map(category => {
+                                        return (
+                                            <div className="categories" key={category.id}>
+                                                <h1>{category.tests.length > 0 ? category.name : ''}</h1>
+                                                {category.tests.map(test => {
+                                                    return (
+                                                        <p onClick={() => window.open(test.pdfUrl, '_blank')}>
+                                                            {test.name} ({test.teacherDiscipline.teacher.name})
+                                                        </p>
+                                                    )
+                                                })}
+                                            </div>
+                                        )
+                                    })}
+                                </TestsAccordion>
+                            )
+                        })}
+                    </TestsAccordion>
                 )
             })}
         </TestWrapper>

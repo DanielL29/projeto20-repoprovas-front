@@ -8,9 +8,14 @@ export const TestWrapper = styled.form`
         font-weight: 500;
     }
 
+    .categories {
+        padding: 0 20px;
+    }
+
     .categories p {
         color: #878787;
         font-weight: 400;
         font-size: 14px;
+        cursor: pointer;
     }
 `
