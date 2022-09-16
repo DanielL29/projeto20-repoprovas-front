@@ -15,3 +15,13 @@ export async function createTest(token, test) {
 
     return promise.status
 }
+
+export async function getTestsByDiscipline(token) {
+    try {
+        const promise = await axios.get(`${TEST_ENDPOINT}/discipline`, AUTH_CONFIG(token))
+
+        return promise.data
+    } catch (err) {
+        errorToast(err.response.data)
+    }
+}

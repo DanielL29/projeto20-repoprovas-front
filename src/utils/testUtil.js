@@ -1,5 +1,5 @@
-import { getTeacherDiscipline } from "../services/manyTablesService";
-import { createTest } from "../services/testService";
+import { getTeacherDiscipline } from '../services/teacherDisciplineService'
+import { createTest, getTestsByDiscipline } from "../services/testService";
 
 export async function addTest(e, token, test, navigate) {
     e.preventDefault()
@@ -18,4 +18,10 @@ export async function addTest(e, token, test, navigate) {
     if (status === 201) {
         navigate('/tests/disciplines')
     }
+}
+
+export async function testsByDiscipline(token, setTests) {
+    const tests = await getTestsByDiscipline(token)
+
+    setTests(tests)
 }
