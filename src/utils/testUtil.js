@@ -1,4 +1,4 @@
-import { getTeacherDiscipline } from '../services/teacherDisciplineService'
+import { getDisciplineTeachers, getTeacherDiscipline } from '../services/teacherDisciplineService'
 import { createTest, getTestsByDiscipline, getTestsByTeacher } from "../services/testService";
 
 export async function addTest(e, token, test, navigate) {
@@ -30,4 +30,10 @@ export async function testsByTeacher(token, setTests) {
     const tests = await getTestsByTeacher(token)
 
     setTests(tests)
+}
+
+export async function disciplineTeachers(token, discipleId, setTeachers) {
+    const teachers = await getDisciplineTeachers(token, discipleId)
+
+    setTeachers(teachers)
 }

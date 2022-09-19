@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SelectField from "../../components/select-field/SelectField";
 import UserContext from "../../contexts/UserContext";
 import { manyTables } from "../../utils/manyTablesUtil";
-import { addTest } from "../../utils/testUtil";
+import { addTest, disciplineTeachers } from "../../utils/testUtil";
 import { TestWrapper } from "./TestStyle";
 
 export default function AddTest() {
@@ -22,9 +22,9 @@ export default function AddTest() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        manyTables(currentUser.token, setCategories, setDisciplines, setTeachers)
+        manyTables(currentUser.token, setCategories, setDisciplines)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [categories])
+    }, [])
 
     return (
         <TestWrapper onSubmit={e => addTest(e, currentUser.token, test, navigate)}>
@@ -40,11 +40,15 @@ export default function AddTest() {
             </SelectField>
             <SelectField value={test.disciplineId} text="Disciplina" name="disciplineId"
                 onChange={e => setTest({ ...test, [e.target.name]: e.target.value })}>
-                {disciplines.map(discipline => <MenuItem key={discipline.id} value={discipline.id}>{discipline.name}</MenuItem>)}
+                {disciplines.map(discipline =>
+                    <MenuItem key={discipline.id} value={discipline.id} onClick={() => disciplineTeachers(currentUser.token, discipline.id, setTeachers)}>
+                        {discipline.name}
+                    </MenuItem>
+                )}
             </SelectField>
-            <SelectField value={test.teacherId} text="Pessoa Instrutora" name="teacherId"
+            <SelectField value={test.teacherId} text="Pessoa Instrutora" name="teacherId" disabled={test.disciplineId === ''}
                 onChange={e => setTest({ ...test, [e.target.name]: e.target.value })}>
-                {teachers.map(teacher => <MenuItem key={teacher.id} value={teacher.id}>{teacher.name}</MenuItem>)}
+                {teachers.map(teacher => <MenuItem key={teacher.id} value={teacher.teacher.id}>{teacher.teacher.name}</MenuItem>)}
             </SelectField>
             <Button variant="contained" type="submit" fullWidth>ENVIAR</Button>
         </TestWrapper>
