@@ -1,4 +1,4 @@
-import { signIn, signUp } from "../services/authService"
+import { githubOAuthCode, signIn, signUp } from "../services/authService"
 
 export async function login(e, user, setLoading, navigate, setCurrentUser) {
     e.preventDefault()
@@ -27,8 +27,21 @@ export async function register(e, user, setLoading, navigate) {
     const status = await signUp(user)
 
     if (status === 201) {
-        navigate('/sign-in')
+        navigate('/')
     }
 
     setLoading(false)
+}
+
+export async function githubAuthorize() {
+    window.location.replace(`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`)
+}
+
+export async function githubOAuth(code, setCurrentUser) {
+    if (code !== undefined) {
+        const token = await githubOAuthCode(code)
+
+        localStorage.setItem('userLocal', JSON.stringify(token))
+        setCurrentUser(token)
+    }
 }

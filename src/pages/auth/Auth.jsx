@@ -1,11 +1,11 @@
 import { SignWrapper } from "./AuthStyle";
 import logo from '../../assets/images/logo.png'
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthInput from '../../components/auth-input/AuthInput';
 import { GITHUB_BUTTON_STYLE } from "../../constants/objectStyles";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-import { login, register } from "../../utils/authUtil";
+import { githubAuthorize, githubOAuth, login, register } from "../../utils/authUtil";
 import UserContext from "../../contexts/UserContext";
 
 export default function Auth() {
@@ -14,7 +14,13 @@ export default function Auth() {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const { setCurrentUser } = useContext(UserContext)
-    const signInOrSignUp = useLocation().pathname === '/sign-in'
+    const signInOrSignUp = useLocation().pathname === '/'
+    const code = useLocation().search.split('=')[1]
+
+    useEffect(() => {
+        githubOAuth(code, setCurrentUser)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <SignWrapper>
@@ -24,7 +30,7 @@ export default function Auth() {
                 register(e, user, setLoading, navigate)
             }>
                 <h1>{signInOrSignUp ? 'Login' : 'Cadastro'}</h1>
-                <Button style={GITHUB_BUTTON_STYLE} variant="contained" disableElevation>
+                <Button style={GITHUB_BUTTON_STYLE} variant="contained" disableElevation onClick={githubAuthorize}>
                     ENTRAR COM O GITHUB
                 </Button>
                 <div className="division">
@@ -44,7 +50,7 @@ export default function Auth() {
                     />
                 ) : ''}
                 <div className="submit">
-                    <h2 onClick={() => navigate(signInOrSignUp ? '/sign-up' : '/sign-in')}>
+                    <h2 onClick={() => navigate(signInOrSignUp ? '/sign-up' : '/')}>
                         {signInOrSignUp ? 'Não possuo cadastro' : 'Já possou cadastro'}
                     </h2>
                     <Button style={{

@@ -18,16 +18,16 @@ export default function AddTest() {
         disciplineId: '',
         teacherId: ''
     })
-    const { currentUser } = useContext(UserContext)
+    const { currentUser, setCurrentUser } = useContext(UserContext)
     const navigate = useNavigate()
 
     useEffect(() => {
-        manyTables(currentUser.token, setCategories, setDisciplines)
+        manyTables(currentUser.token, setCategories, setDisciplines, setCurrentUser)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
-        <TestWrapper onSubmit={e => addTest(e, currentUser.token, test, navigate)}>
+        <TestWrapper onSubmit={e => addTest(e, currentUser.token, test, navigate)} enctype="multipart/form-data">
             <TextField id="name" name="name" value={test.name} label="Nome da prova"
                 variant="outlined" fullWidth style={{ marginBottom: '15px' }} required
                 onChange={e => setTest({ ...test, [e.target.name]: e.target.value })} />

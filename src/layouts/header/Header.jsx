@@ -13,7 +13,7 @@ export default function Header() {
     function RenderHeader() {
         const allRoutes = ALL_ROUTES.find(route => route === location.pathname)
 
-        if (allRoutes && allRoutes !== '/sign-in' && allRoutes !== '/sign-up') {
+        if (allRoutes && allRoutes !== '/' && allRoutes !== '/sign-up') {
             return (
                 <>
                     <HeaderWrapper>

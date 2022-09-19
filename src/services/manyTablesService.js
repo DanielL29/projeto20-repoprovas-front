@@ -9,6 +9,8 @@ export async function getManyTables(token) {
         promise = await axios.get(MANY_TABLES_ENDPOINT, AUTH_CONFIG(token))
     } catch (err) {
         errorToast(err.response.data)
+
+        promise = err.response.data
     }
 
     return promise.data

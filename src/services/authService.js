@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SIGN_IN_ENDPOINT, SIGN_UP_ENDPOINT } from '../constants/endpoints';
+import { GITHUB_OAUTH, SIGN_IN_ENDPOINT, SIGN_UP_ENDPOINT } from '../constants/endpoints';
 import { errorToast } from './../utils/errorUtil';
 
 export async function signIn(user) {
@@ -28,4 +28,14 @@ export async function signUp(user) {
     }
 
     return promise.status
+}
+
+export async function githubOAuthCode(code) {
+    try {
+        const promise = await axios.post(GITHUB_OAUTH, { code })
+
+        return promise
+    } catch (err) {
+        errorToast(err.response.data)
+    }
 }
