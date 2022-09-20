@@ -3,13 +3,15 @@ import { testsByDiscipline } from "../../utils/testUtil";
 import UserContext from "../../contexts/UserContext";
 import { TestWrapper } from "./TestStyle";
 import TestsAccordion from "../../layouts/tests-accordion/TestsAccordion";
+import { useNavigate } from "react-router-dom";
 
 export default function TestsByDiscipline() {
     const [tests, setTests] = useState([])
     const { currentUser } = useContext(UserContext)
+    const navigate = useNavigate()
 
     useEffect(() => {
-        testsByDiscipline(currentUser.token, setTests)
+        testsByDiscipline(currentUser.token, setTests, navigate)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

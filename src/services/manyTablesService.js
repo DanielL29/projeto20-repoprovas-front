@@ -10,7 +10,7 @@ export async function getManyTables(token) {
     } catch (err) {
         errorToast(err.response.data)
 
-        promise = err.response.data
+        promise = err.response
     }
 
     return promise.data

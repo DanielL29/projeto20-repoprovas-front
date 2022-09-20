@@ -17,21 +17,29 @@ export async function createTest(token, test) {
 }
 
 export async function getTestsByDiscipline(token) {
-    try {
-        const promise = await axios.get(`${TEST_ENDPOINT}/discipline`, AUTH_CONFIG(token))
+    let promise;
 
-        return promise.data
+    try {
+        promise = await axios.get(`${TEST_ENDPOINT}/discipline`, AUTH_CONFIG(token))
     } catch (err) {
         errorToast(err.response.data)
+
+        promise = err.response
     }
+
+    return promise.data
 }
 
 export async function getTestsByTeacher(token) {
-    try {
-        const promise = await axios.get(`${TEST_ENDPOINT}/teacher`, AUTH_CONFIG(token))
+    let promise;
 
-        return promise.data
+    try {
+        promise = await axios.get(`${TEST_ENDPOINT}/teacher`, AUTH_CONFIG(token))
     } catch (err) {
         errorToast(err.response.data)
+
+        promise = err.response
     }
+
+    return promise.data
 }

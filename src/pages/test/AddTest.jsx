@@ -22,12 +22,12 @@ export default function AddTest() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        manyTables(currentUser.token, setCategories, setDisciplines, setCurrentUser)
+        manyTables(currentUser.token, setCategories, setDisciplines, setCurrentUser, navigate)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
-        <TestWrapper onSubmit={e => addTest(e, currentUser.token, test, navigate)} enctype="multipart/form-data">
+        <TestWrapper onSubmit={e => addTest(e, currentUser.token, test, navigate, setTest)} enctype="multipart/form-data">
             <TextField id="name" name="name" value={test.name} label="Nome da prova"
                 variant="outlined" fullWidth style={{ marginBottom: '15px' }} required
                 onChange={e => setTest({ ...test, [e.target.name]: e.target.value })} />
