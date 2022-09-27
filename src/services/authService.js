@@ -34,7 +34,7 @@ export async function githubOAuthCode(code) {
     try {
         const promise = await axios.post(GITHUB_OAUTH, { code })
 
-        return promise
+        return promise.data
     } catch (err) {
         errorToast(err.response.data)
     }
